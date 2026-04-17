@@ -1,0 +1,26 @@
+name: weather forecast
+
+on:
+  push:
+    branches: 
+    - main
+  pull-request:
+    branches:
+    - main
+
+jobs:
+  build-dotnet-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repos
+        uses: actions/checkout@v4
+      - name: Install dotnet
+        uses: actions/setup-dotnet@v4
+        with: 
+          dotnet-version: 8.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: build app
+        run: dotnet build --no-restore
+      - name: run test
+        run: dotnet test --no-build --verbosity normal
