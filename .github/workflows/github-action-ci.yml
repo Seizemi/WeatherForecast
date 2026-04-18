@@ -1,4 +1,4 @@
-name: weather forecast
+name: weather forecast ci
 
 on:
   push:
@@ -22,8 +22,15 @@ jobs:
         run: dotnet restore
         working-directory: WebApplication1
       - name: build app
-        run: dotnet build --no-restore
+        run: dotnet build -c Release --no-restore
         working-directory: WebApplication1
       - name: run test
         run: dotnet test --no-build --verbosity normal
         working-directory: WeatherForecastTests
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ./dotnet-app
+      - name: Upload artifact for deployment jobs
+        uses: actions/upload-artifact@v4
+        with:
+          name: .net-app
+          path: ./dotnet-app
