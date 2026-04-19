@@ -33,7 +33,7 @@ jobs:
         working-directory: WeatherForecastTests
         
       - name: dotnet publish
-        run: dotnet publish -c Release -o ./dotnet-app
+        run: dotnet publish WebApplication1.csproj -c Release -o ./dotnet-app
         working-directory: WebApplication1
         
       - name: Upload artifact for deployment jobs

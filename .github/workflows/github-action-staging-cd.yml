@@ -15,6 +15,6 @@ jobs:
     
     steps:
       - name: Download artifact from build job
-        uses: artifact/download-artifact@v5
+        uses: actions/download-artifact@v5
         with:
           name: dotnet-app
