@@ -34,9 +34,10 @@ jobs:
         
       - name: dotnet publish
         run: dotnet publish -c Release -o ./dotnet-app
+        working-directory: WebApplication1
         
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
-          name: .net-app
-          path: ./dotnet-app
+          name: dotnet-app
+          path: WebApplication1/dotnet-app
