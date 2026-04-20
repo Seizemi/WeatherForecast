@@ -22,6 +22,7 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: dotnet-app
+          path: ./dotnet-app
           run-id: ${{github.event.workflow_run.id}}
           github-token: ${{github.token}}
 
