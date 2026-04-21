@@ -15,7 +15,7 @@ jobs:
     if: >
       github.event.workflow_run.event == 'push' &&
       github.event.workflow_run.conclusion == 'success'
-    uses: ./.github/workflows/reusable-deploy-webapp.yml
+    uses: ./.github/workflows/reusable-deploy-azure-webapp.yml
     with:
       artifact_name: dotnet-app
       artifact_path: ./dotnet-app
