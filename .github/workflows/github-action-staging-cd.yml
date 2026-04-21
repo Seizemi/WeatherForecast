@@ -18,23 +18,31 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v5
+      - name: Call reusable deploy to azure web app workflow
+        uses: ./.github/workflows/reusable-deploy-webapp.yml
         with:
-          name: dotnet-app
-          path: ./dotnet-app
-          run-id: ${{github.event.workflow_run.id}}
-          github-token: ${{github.token}}
+          artifact_name: dotnet-app
+          artifact_path: ./dotnet-app
+          source_run_id: ${{ github.event.workflow_run.id }}
+          webapp_name: weatherforecastpipelineapp
+        secrets: inherit
+      # - name: Download artifact from build job
+      #   uses: actions/download-artifact@v5
+      #   with:
+      #     name: dotnet-app
+      #     path: ./dotnet-app
+      #     run-id: ${{github.event.workflow_run.id}}
+      #     github-token: ${{github.token}}
 
-      - name: Azure login
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      # - name: Azure login
+      #   uses: azure/login@v2
+      #   with:
+      #     client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      #     subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Azure Web App deploy
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: weatherforecastpipelineapp
-          package: ./dotnet-app
+      # - name: Azure Web App deploy
+      #   uses: azure/webapps-deploy@v3
+      #   with:
+      #     app-name: weatherforecastpipelineapp
+      #     package: ./dotnet-app
