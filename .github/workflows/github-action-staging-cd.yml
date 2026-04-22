@@ -3,13 +3,12 @@ name: weather forecast staging cd v2
 on:
   workflow_run:
     workflows: ["weather forecast ci"]
-    types:
-      - completed
+    types: [completed]
+    branches: [staging]
 
 permissions:
       id-token: write
       contents: read
-      
 
 jobs:
   debug:
