@@ -1,4 +1,4 @@
-name: weather forecast staging cd v2
+name: weather forecast production cd
 
 on:
   workflow_run:
