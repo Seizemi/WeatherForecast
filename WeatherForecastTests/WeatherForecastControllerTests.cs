@@ -1,4 +1,5 @@
-﻿using AutoFixture;
+﻿using System.Reflection;
+using AutoFixture;
 using AutoFixture.AutoMoq;
 using Microsoft.Extensions.Logging;
 using WebApplication1.Controllers;
@@ -10,6 +11,7 @@ namespace WeatherForecastTests
     {
         IFixture? _fixture;
         ILogger<WeatherForecastController>? _loggerMock;
+        WebApplication1.Models.Environment _environment;
         WeatherForecastController? _sut;
 
         [TestInitialize]
@@ -17,7 +19,8 @@ namespace WeatherForecastTests
         {
             _fixture = new Fixture().Customize(new AutoMoqCustomization());
             _loggerMock = _fixture.Freeze<ILogger<WeatherForecastController>>();
-            _sut = new(_loggerMock);
+            _environment = _fixture.Freeze<WebApplication1.Models.Environment>();
+            _sut = new(_loggerMock, _environment);
         }
 
         [TestMethod]
