@@ -30,12 +30,21 @@ jobs:
 
     steps:
       - name: Download artifact from CI workflow
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.artifact_name }}
           path: ${{ inputs.artifact_path }}
           run-id: ${{ inputs.source_run_id }}
           github-token: ${{ github.token }}
+
+      - name: Sho selected environment
+        run: echo "Environment is ${{ inputs.environment_name }}"
+
+      - name: Check Azure secret presence
+        run: |
+          [ -n "${{ secrets.AZURE_CLIENT_ID }}" ] && echo "CLIENT_ID present" || echo "CLIENT_ID missing"
+          [ -n "${{ secrets.AZURE_TENANT_ID }}" ] && echo "TENANT_ID present" || echo "TENANT_ID missing"
+          [ -n "${{ secrets.AZURE_SUBSCRIPTION_ID }}" ] && echo "SUBSCRIPTION_ID present" || echo "SUBSCRIPTION_ID missing"
 
       - name: Azure login
         uses: azure/login@v2
