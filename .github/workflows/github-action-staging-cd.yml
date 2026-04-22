@@ -11,6 +11,23 @@ permissions:
       contents: read
 
 jobs:
+  debug:
+    if: >
+        github.event.workflow_run.event == 'push' &&
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_branch == 'staging'
+    environment: Staging
+    steps:
+      - name: Show selected environment
+        run: echo "Environment is ${{ job.environment.name }}"
+
+      - name: Check Azure secret presence
+        run: |
+          [ -n "${{ secrets.AZURE_CLIENT_ID }}" ] && echo "CLIENT_ID present" || echo "CLIENT_ID missing"
+          [ -n "${{ secrets.AZURE_TENANT_ID }}" ] && echo "TENANT_ID present" || echo "TENANT_ID missing"
+          [ -n "${{ secrets.AZURE_SUBSCRIPTION_ID }}" ] && echo "SUBSCRIPTION_ID present" || echo "SUBSCRIPTION_ID missing"
+
+
   deploy-to-staging-webapp:
     if: >
       github.event.workflow_run.event == 'push' &&
@@ -29,3 +46,8 @@ jobs:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+
+
+
+      
