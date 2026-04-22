@@ -1,4 +1,4 @@
-name: weather forecast staging cd v2
+name: weather forecast staging cd
 
 on:
   workflow_run:
@@ -11,19 +11,17 @@ permissions:
       contents: read
 
 jobs:
-  debug:
-    runs-on: ubuntu-latest
-    environment: Staging
-    
-    steps:
-      - name: Show selected environment
-        run: echo "Environment is ${{ job.environment.name }}"
-
-      - name: Check Azure secret presence
-        run: |
-          [ -n "${{ secrets.AZURE_CLIENT_ID }}" ] && echo "CLIENT_ID present" || echo "CLIENT_ID missing"
-          [ -n "${{ secrets.AZURE_TENANT_ID }}" ] && echo "TENANT_ID present" || echo "TENANT_ID missing"
-          [ -n "${{ secrets.AZURE_SUBSCRIPTION_ID }}" ] && echo "SUBSCRIPTION_ID present" || echo "SUBSCRIPTION_ID missing"
+  uses: ./.github/workflows/reusable-deploy-azure-webapp.yml
+  with:
+    environment_name: Staging
+    artifact_name: dotnet-app
+    artifact_path: ./dotnet-app
+    source_run_id: ${{ github.event.workflow_run.id }}
+    webapp_name: weatherforecastpipelineprod
+  secrets: 
+    AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+    AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+    AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
 
   # deploy-to-staging-webapp:
