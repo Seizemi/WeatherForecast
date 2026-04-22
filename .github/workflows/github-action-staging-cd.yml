@@ -23,27 +23,4 @@ jobs:
     secrets: 
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-  # deploy-to-staging-webapp:
-  #   if: >
-  #     github.event.workflow_run.event == 'push' &&
-  #     github.event.workflow_run.conclusion == 'success' &&
-  #     github.event.workflow_run.head_branch == 'staging'
-  #   environment: Staging
-  #   uses: ./.github/workflows/reusable-deploy-azure-webapp.yml
-  #   with:
-  #     environment_name: Staging
-  #     artifact_name: dotnet-app
-  #     artifact_path: ./dotnet-app
-  #     source_run_id: ${{ github.event.workflow_run.id }}
-  #     webapp_name: weatherforecastpipelineapp
-  #   secrets: 
-  #     AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-  #     AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-  #     AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-
-
-
-      
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}    
