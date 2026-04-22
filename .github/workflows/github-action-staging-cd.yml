@@ -18,7 +18,7 @@ jobs:
       github.event.workflow_run.head_branch == 'staging'
     uses: ./.github/workflows/reusable-deploy-azure-webapp.yml
     with:
-      environment_name: staging
+      environment_name: Staging
       artifact_name: dotnet-app
       artifact_path: ./dotnet-app
       source_run_id: ${{ github.event.workflow_run.id }}
